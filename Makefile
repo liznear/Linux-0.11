@@ -42,7 +42,12 @@ LIBS	=lib/lib.a
 .c.o:
 	@$(CC) $(CFLAGS) -c -o $*.o $<
 
-all:	Image	
+in-docker:
+	docker build -t old-linux-builder .
+	docker run --rm -v .:/build old-linux-builder make all
+	docker run --rm -v .:/build old-linux-builder chmod 666 Image
+
+all:	Image
 
 Image: boot/bootsect boot/setup tools/system
 	@cp -f tools/system system.tmp
