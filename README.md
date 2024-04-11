@@ -21,14 +21,26 @@ $ make debug		// debug it via qemu & gdb, you'd start gdb to connect it.
 ```
 ```gdb
 $ gdb tools/system
+(gdb) set architecture i386:x86-64
 (gdb) target remote :1234
 (gdb) b main
 (gdb) c
 ```
 
-## 2. Build on Mac OS X
+## 2. Build in Docker
 
-### 2.1. Mac OS X Setup
+The original project is pretty old, and it can only be built on an old system without changes. This option makes compiling easier.
+
+To build, you can run
+```bash
+make in-docker
+```
+
+It builds a docker image including all required dependencies, and also build Linux 0.11 in it. After that, you can do the same as 1.2 in your **host system**.
+
+## 3. Build on Mac OS X
+
+### 3.1. Mac OS X Setup
 
 * install cross compiler gcc and binutils
 * install qemu
@@ -49,9 +61,5 @@ $ ./configure --target=i386-elf
 $ make
 ```
 
-### 2.2. hack linux-0.11
-same as section 1.2
-
-
-## 3. Build on Windows
-todo...
+### 3.2. hack linux-0.11
+same as section 2.2
